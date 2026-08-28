@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "kofponents": ["./src/index"]
+      "@porfidev/kofponents": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

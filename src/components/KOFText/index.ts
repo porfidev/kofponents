@@ -1,0 +1,1 @@
+export { KOFText } from './KOFText';
