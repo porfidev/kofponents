@@ -1,6 +1,6 @@
 {
   "name": "@porfidev/kofponents",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "reusable components library I had been created",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
