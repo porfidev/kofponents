@@ -1,7 +1,7 @@
 {
   "name": "@porfidev/kofponents",
   "version": "0.1.1",
-  "description": "reusable components library I had been created",
+  "description": "Librería de componentes visuales reutilizables para React Native.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -40,7 +40,10 @@
     "web": "vite",
     "build:web": "vite build",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "test": "jest"
+    "test": "jest",
+    "publish:public": "npm publish --access public --registry=https://registry.npmjs.org/",
+    "publish:private": "npm publish --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/",
+    "publish:all": "npm run publish:public && npm run publish:private"
   },
   "keywords": [
     "react-native",
@@ -57,9 +60,6 @@
     "url": "https://github.com/porfidev/kofponents/issues"
   },
   "homepage": "https://github.com/porfidev/kofponents#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "devDependencies": {
     "@commitlint/config-conventional": "^21.0.2",
     "@eslint/compat": "^2.1.0",

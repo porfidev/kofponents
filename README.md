@@ -103,19 +103,19 @@ export function Example() {
 Variantes disponibles:
 
 ```ts
-variant: 'body' | 'title'
+variant: 'body' | 'title';
 ```
 
 Pesos disponibles por nombre:
 
 ```ts
-weight: 'thin' | 'regular' | 'medium' | 'semibold' | 'bold' | 'extrabold'
+weight: 'thin' | 'regular' | 'medium' | 'semibold' | 'bold' | 'extrabold';
 ```
 
 Pesos disponibles por numero:
 
 ```ts
-weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 ```
 
 Mapeo de pesos numericos:
@@ -242,6 +242,35 @@ El `example` consume la libreria local con:
 
 ### Publicacion
 
+La libreria se publica como paquete scoped:
+
+```json
+"name": "@porfidev/kofponents"
+```
+
+Puede publicarse en dos registros:
+
+- npm publico: `https://registry.npmjs.org/`
+- Azure Artifacts privado:
+  `https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/`
+
+Agrega un archivo `.npmrc` en la raiz del proyecto, junto a `package.json`, con
+la configuracion de registros:
+
+```ini
+registry=https://registry.npmjs.org/
+
+@porfidev:registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
+always-auth=true
+```
+
+No agregues tokens ni credenciales en el `.npmrc` del proyecto. La autenticacion
+personal debe vivir en el `.npmrc` del usuario:
+
+```txt
+~/.npmrc
+```
+
 Antes de publicar:
 
 ```sh
@@ -250,7 +279,6 @@ yarn typecheck
 yarn test --runInBand --watchman=false
 yarn prepare
 npm pack --dry-run
-npm whoami
 ```
 
 Sube la version segun el tipo de cambio:
@@ -267,10 +295,24 @@ npm version minor
 npm version major
 ```
 
-Publica en npm:
+Publica en npm publico:
 
 ```sh
-npm publish --access public
+npm publish --access public --registry=https://registry.npmjs.org/
+```
+
+Publica en Azure Artifacts:
+
+```sh
+npm publish --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
+```
+
+Para publicar en ambos registros, usa la misma version y publica una vez en cada
+registro:
+
+```sh
+npm publish --access public --registry=https://registry.npmjs.org/
+npm publish --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
 ```
 
 Despues sube el commit y el tag:
@@ -289,7 +331,8 @@ yarn test --runInBand --watchman=false
 yarn prepare
 npm pack --dry-run
 npm version patch
-npm publish --access public
+npm publish --access public --registry=https://registry.npmjs.org/
+npm publish --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
 git push
 git push --tags
 ```
