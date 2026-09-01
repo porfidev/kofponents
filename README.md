@@ -284,35 +284,60 @@ npm pack --dry-run
 Sube la version segun el tipo de cambio:
 
 ```sh
-npm version patch
+yarn version patch
 ```
 
 ```sh
-npm version minor
+yarn version minor
 ```
 
 ```sh
-npm version major
+yarn version major
 ```
 
-Publica en npm publico:
+El proyecto ya incluye scripts para publicar en cada registro desde
+`package.json`.
+
+Para publicar en npm publico:
 
 ```sh
-npm publish --access public --registry=https://registry.npmjs.org/
+yarn publish:public
+```
+
+Si el `.npmrc` del proyecto tiene activo el endpoint privado para `@porfidev`,
+comentalo temporalmente antes de publicar en npm publico:
+
+```ini
+registry=https://registry.npmjs.org/
+
+# @porfidev:registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
+# always-auth=true
+```
+
+Despues publica con:
+
+```sh
+yarn publish:public
 ```
 
 Publica en Azure Artifacts:
 
 ```sh
-npm publish --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
+yarn publish:private
 ```
 
 Para publicar en ambos registros, usa la misma version y publica una vez en cada
 registro:
 
 ```sh
-npm publish --access public --registry=https://registry.npmjs.org/
-npm publish --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
+yarn publish:public
+yarn publish:private
+```
+
+Tambien puedes usar el script que publica ambos registros:
+
+```sh
+yarn publish:all
 ```
 
 Despues sube el commit y el tag:
@@ -330,9 +355,9 @@ yarn typecheck
 yarn test --runInBand --watchman=false
 yarn prepare
 npm pack --dry-run
-npm version patch
-npm publish --access public --registry=https://registry.npmjs.org/
-npm publish --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
+yarn version patch
+yarn publish:public
+yarn publish:private
 git push
 git push --tags
 ```
