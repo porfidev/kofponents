@@ -19,4 +19,10 @@ export type KOFTheme = {
     text: string;
     background: string;
   };
+  labels: {
+    bgSurfaceWarning: string;
+    bgSurfaceError: string;
+    textError: string;
+    textWarning: string;
+  };
 };

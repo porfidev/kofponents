@@ -1,8 +1,8 @@
 import React from 'react';
 import TestRenderer, { act } from 'react-test-renderer';
-import { StyleSheet, Text } from 'react-native';
-import { describe, expect, it } from '@jest/globals';
-import { defaultTheme, KOFProvider, KOFText } from '../index';
+import { StyleSheet, Text, View } from 'react-native';
+import { describe, expect, it, jest } from '@jest/globals';
+import { defaultTheme, KOFProvider, KOFText, StatusLabel } from '../index';
 
 type NumericWeightCase = [
   weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900,
@@ -132,6 +132,61 @@ describe('KOFText', () => {
         color: '#abcdef',
         fontFamily: defaultTheme.typography.fontFamily.regular,
         fontSize: 32,
+      })
+    );
+  });
+});
+
+describe('StatusLabel', () => {
+  it('renders its text with the default warn styles', () => {
+    const renderer = render(<StatusLabel text="Atención" />);
+    const text = renderer.root.findByType(Text);
+
+    expect(text.props.children).toBe('Atención');
+    expect(getTextStyle(renderer)).toEqual(
+      expect.objectContaining({
+        color: defaultTheme.labels.textWarning,
+        fontFamily: defaultTheme.typography.fontFamily.bold,
+        fontSize: 10,
+        lineHeight: 12,
+      })
+    );
+  });
+
+  it('uses the error text token for the error variant', () => {
+    const renderer = render(
+      <StatusLabel variant="error" text="Ocurrió un error" />
+    );
+
+    expect(getTextStyle(renderer)).toEqual(
+      expect.objectContaining({
+        color: defaultTheme.labels.textError,
+        fontSize: 10,
+        lineHeight: 12,
+      })
+    );
+  });
+
+  it('passes view props through and allows text styles to override defaults', () => {
+    const onLayout = jest.fn();
+    const renderer = render(
+      <StatusLabel
+        accessibilityLabel="Estado personalizado"
+        onLayout={onLayout}
+        text="Personalizado"
+        textStyle={{ color: '#123456', fontSize: 14 }}
+        textProps={{ numberOfLines: 1 }}
+      />
+    );
+    const view = renderer.root.findByType(View);
+
+    expect(view.props.accessibilityLabel).toBe('Estado personalizado');
+    expect(view.props.onLayout).toBe(onLayout);
+    expect(renderer.root.findByType(Text).props.numberOfLines).toBe(1);
+    expect(getTextStyle(renderer)).toEqual(
+      expect.objectContaining({
+        color: '#123456',
+        fontSize: 14,
       })
     );
   });

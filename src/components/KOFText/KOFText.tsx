@@ -1,5 +1,5 @@
 import { StyleSheet, Text, type TextProps, type TextStyle } from 'react-native';
-import { useKOFTheme } from '../../theme/index';
+import { useKOFTheme } from '../../theme';
 
 type KOFTextVariant = 'body' | 'title';
 type KOFTextWeightName =

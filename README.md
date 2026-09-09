@@ -271,6 +271,22 @@ personal debe vivir en el `.npmrc` del usuario:
 ~/.npmrc
 ```
 
+### Validacion antes de publicar en Azure Artifacts
+
+Antes de publicar en el registro privado, confirma que el scope `@porfidev`
+resuelve al feed de Azure Artifacts y que tienes una sesion autenticada:
+
+```sh
+npm config get @porfidev:registry
+npm whoami --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/
+```
+
+El primer comando debe mostrar el endpoint de Azure Artifacts y el segundo debe
+mostrar tu usuario. Un error `E401` indica que faltan credenciales o que ya no
+son validas; un `E403` indica que la cuenta no tiene permiso para publicar en
+el feed. Configura o renueva la autenticacion en `~/.npmrc`, nunca en el
+`.npmrc` del proyecto.
+
 Antes de publicar:
 
 ```sh

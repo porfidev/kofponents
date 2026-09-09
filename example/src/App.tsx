@@ -4,6 +4,7 @@ import {
   KOFProvider,
   KOFText,
   multiply,
+  StatusLabel,
 } from '@porfidev/kofponents';
 
 const result = multiply(3, 7);
@@ -28,6 +29,8 @@ export default function App() {
           KOFText Body
         </KOFText>
 
+        <StatusLabel text={'Mensaje de advertencia'} variant={'warn'} />
+        <StatusLabel text={'Mensaje de error'} variant={'error'} />
         <Text>Result: {result}</Text>
       </View>
     </KOFProvider>

@@ -1,6 +1,6 @@
 {
   "name": "@porfidev/kofponents",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Librería de componentes visuales reutilizables para React Native.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -97,7 +97,7 @@
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@4.11.0",
+  "packageManager": "yarn@4.18.0",
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",

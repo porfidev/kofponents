@@ -44,4 +44,10 @@ export const defaultTheme: KOFTheme = {
     text: '#000000',
     background: '#666666',
   },
+  labels: {
+    bgSurfaceWarning: '#FFC01A',
+    bgSurfaceError: '#E31F42',
+    textWarning: '#222222',
+    textError: '#FCFCFC',
+  },
 };
