@@ -14,7 +14,11 @@ Tambien puedes instalarla con Yarn:
 yarn add @porfidev/kofponents
 ```
 
-La libreria declara `react` y `react-native` como peer dependencies, por lo que deben existir en la aplicacion donde se instale.
+La libreria declara `react` y `react-native` como peer dependencies, por lo que deben existir en la aplicacion donde se instale. Para usar los iconos, instala tambien `react-native-svg`:
+
+```sh
+npm install react-native-svg
+```
 
 ## Uso
 
@@ -135,6 +139,66 @@ Colores:
 <KOFText color="text">Color desde el tema</KOFText>
 <KOFText color="background">Otro token del tema</KOFText>
 <KOFText color="#ff0000">Color literal</KOFText>
+```
+
+### StatusLabel
+
+Etiqueta para mostrar estados de advertencia o error. Usa los tokens
+`labels` del tema y puede incluir un icono a la izquierda.
+
+```tsx
+import {
+  AlertTriangleIcon,
+  ForbiddenIcon,
+  StatusLabel,
+} from '@porfidev/kofponents';
+
+export function StatusExample() {
+  return (
+    <>
+      <StatusLabel
+        variant="warn"
+        text="Revisa la informacion antes de continuar"
+        icon={<AlertTriangleIcon color="#222222" />}
+      />
+
+      <StatusLabel
+        variant="error"
+        text="No tienes permiso para realizar esta accion"
+        icon={<ForbiddenIcon color="#FCFCFC" />}
+      />
+    </>
+  );
+}
+```
+
+Propiedades principales:
+
+```ts
+variant: 'warn' | 'error'; // Por defecto: 'warn'
+text: string;
+icon?: ReactNode;
+textStyle?: TextStyle;
+textProps?: TextProps;
+```
+
+### Iconos
+
+Los iconos disponibles son `AlertTriangleIcon` y `ForbiddenIcon`. Ambos tienen
+un tamaño predeterminado de `12 × 12` y aceptan `color`, `width`, `height` y
+las propiedades de `Svg` de `react-native-svg`.
+
+```tsx
+import { AlertTriangleIcon, ForbiddenIcon } from '@porfidev/kofponents';
+
+export function IconExample() {
+  return (
+    <>
+      <AlertTriangleIcon color="#F59E0B" />
+      <ForbiddenIcon color="#DC2626" width={20} height={20} />
+    </>
+  );
+}
 ```
 
 ## Tipografias

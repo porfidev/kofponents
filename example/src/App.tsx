@@ -1,6 +1,8 @@
 import { Text, View, StyleSheet } from 'react-native';
 import {
+  AlertTriangleIcon,
   defaultTheme,
+  ForbiddenIcon,
   KOFProvider,
   KOFText,
   multiply,
@@ -29,8 +31,16 @@ export default function App() {
           KOFText Body
         </KOFText>
 
-        <StatusLabel text={'Mensaje de advertencia'} variant={'warn'} />
-        <StatusLabel text={'Mensaje de error'} variant={'error'} />
+        <StatusLabel
+          text={'Mensaje de advertencia'}
+          variant={'warn'}
+          icon={<AlertTriangleIcon />}
+        />
+        <StatusLabel
+          text={'Mensaje de error'}
+          variant={'error'}
+          icon={<ForbiddenIcon />}
+        />
         <Text>Result: {result}</Text>
       </View>
     </KOFProvider>

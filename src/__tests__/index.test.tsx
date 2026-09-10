@@ -1,8 +1,16 @@
 import React from 'react';
 import TestRenderer, { act } from 'react-test-renderer';
 import { StyleSheet, Text, View } from 'react-native';
+import { Path, Svg } from 'react-native-svg';
 import { describe, expect, it, jest } from '@jest/globals';
-import { defaultTheme, KOFProvider, KOFText, StatusLabel } from '../index';
+import {
+  AlertTriangleIcon,
+  defaultTheme,
+  ForbiddenIcon,
+  KOFProvider,
+  KOFText,
+  StatusLabel,
+} from '../index';
 
 type NumericWeightCase = [
   weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900,
@@ -189,5 +197,20 @@ describe('StatusLabel', () => {
         fontSize: 14,
       })
     );
+  });
+});
+
+describe('Icons', () => {
+  it.each([
+    ['AlertTriangleIcon', AlertTriangleIcon],
+    ['ForbiddenIcon', ForbiddenIcon],
+  ])('allows changing the color of %s', (_name, Icon) => {
+    const renderer = render(<Icon color="#123456" width={24} height={24} />);
+    const svg = renderer.root.findByType(Svg);
+    const path = renderer.root.findByType(Path);
+
+    expect(svg.props.width).toBe(24);
+    expect(svg.props.height).toBe(24);
+    expect(path.props.fill).toBe('#123456');
   });
 });

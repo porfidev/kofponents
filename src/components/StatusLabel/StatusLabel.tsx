@@ -23,6 +23,7 @@ export function StatusLabel({
   variant = 'warn',
   text,
   style,
+  icon,
   textStyle,
   textProps,
   ...props
@@ -49,6 +50,7 @@ export function StatusLabel({
 
   return (
     <View {...props} style={[styles.wrapper, variantStyleWrapper, style]}>
+      {icon ? <View style={[styles.iconWrapper]}>{icon}</View> : null}
       <KOFText
         weight={'bold'}
         style={[styles.base, variantStyleText, textStyle]}
@@ -73,5 +75,9 @@ const styles = StyleSheet.create({
   base: {
     fontSize: 10,
     lineHeight: 12,
+  },
+  iconWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

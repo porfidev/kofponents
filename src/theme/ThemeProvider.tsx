@@ -1,4 +1,9 @@
-import { createContext, type PropsWithChildren, useContext } from 'react';
+import {
+  createContext,
+  type PropsWithChildren,
+  useContext,
+  useMemo,
+} from 'react';
 import type { KOFTheme } from './types';
 import { defaultTheme } from './defaultTheme';
 
@@ -27,8 +32,10 @@ function mergeTheme(theme?: Partial<KOFTheme>): KOFTheme {
 }
 
 export function KOFProvider({ theme, children }: KOFProviderProps) {
+  const themeValue = useMemo(() => mergeTheme(theme), [theme]);
+
   return (
-    <KOFThemeContext.Provider value={mergeTheme(theme)}>
+    <KOFThemeContext.Provider value={themeValue}>
       {children}
     </KOFThemeContext.Provider>
   );

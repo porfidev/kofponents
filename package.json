@@ -1,6 +1,6 @@
 {
   "name": "@porfidev/kofponents",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Librería de componentes visuales reutilizables para React Native.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -84,6 +84,7 @@
     "react": "19.2.3",
     "react-native": "0.85.0",
     "react-native-builder-bob": "^0.43.0",
+    "react-native-svg": "^15.15.5",
     "react-native-web": "~0.21.2",
     "react-test-renderer": "19.2.3",
     "release-it": "^20.2.0",
@@ -92,7 +93,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-svg": "*"
   },
   "workspaces": [
     "example"
