@@ -50,4 +50,46 @@ export const defaultTheme: KOFTheme = {
     textWarning: '#222222',
     textError: '#FCFCFC',
   },
+  buttons: {
+    primary: {
+      default: {
+        bgColor: 'rgba(255, 59, 82, 1)',
+        textColor: 'rgba(252, 252, 252, 1)',
+      },
+      hover: {
+        bgColor: 'rgba(227, 31, 66, 1)',
+        textColor: 'rgba(252, 252, 252, 1)',
+      },
+      pressed: {
+        bgColor: 'rgba(189, 2, 28, 1)',
+        textColor: 'rgba(252, 252, 252, 1)',
+      },
+      disabled: {
+        bgColor: 'rgba(172, 172, 172, 1)',
+        textColor: 'rgba(252, 252, 252, 1)',
+      },
+    },
+    secondary: {
+      default: {
+        bgColor: 'rgba(252, 252, 252, 1)',
+        textColor: 'rgba(255, 59, 82, 1)',
+        borderColor: 'rgba(255, 59, 82, 1)',
+      },
+      hover: {
+        bgColor: 'rgba(255, 229, 234, 1)',
+        textColor: 'rgba(255, 59, 82, 1)',
+        borderColor: 'rgba(255, 59, 82, 1)',
+      },
+      pressed: {
+        bgColor: 'rgba(255, 178, 192, 1)',
+        textColor: 'rgba(102, 0, 18, 1)',
+        borderColor: 'rgba(102, 0, 18, 1)',
+      },
+      disabled: {
+        bgColor: 'rgba(172, 172, 172, 1)',
+        textColor: 'rgba(252, 252, 252, 1)',
+        borderColor: 'rgba(172, 172, 172, 1)',
+      },
+    },
+  },
 };

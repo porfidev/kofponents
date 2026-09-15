@@ -13,6 +13,19 @@ export type KOFTypography = {
   lineHeight: number;
 };
 
+type KOFButtonColors = {
+  bgColor: string;
+  textColor: string;
+  borderColor?: string;
+};
+
+type KOFButtonPalette = {
+  default: KOFButtonColors;
+  hover: KOFButtonColors;
+  pressed: KOFButtonColors;
+  disabled: KOFButtonColors;
+};
+
 export type KOFTheme = {
   typography: KOFTypography;
   colors: {
@@ -24,5 +37,9 @@ export type KOFTheme = {
     bgSurfaceError: string;
     textError: string;
     textWarning: string;
+  };
+  buttons: {
+    primary: KOFButtonPalette;
+    secondary: KOFButtonPalette;
   };
 };

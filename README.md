@@ -22,7 +22,9 @@ npm install react-native-svg
 
 ## Uso
 
-Envuelve tu aplicacion con `KOFProvider` para que los componentes puedan leer el tema:
+Los componentes funcionan sin `KOFProvider`: usan `defaultTheme` automaticamente.
+Agrega el provider cuando quieras personalizar el tema de tu aplicacion o de una
+seccion. Tambien puedes usarlo sin pasar `theme`, como en este ejemplo:
 
 ```tsx
 import { KOFProvider, KOFText } from '@porfidev/kofponents';
@@ -141,6 +143,125 @@ Colores:
 <KOFText color="#ff0000">Color literal</KOFText>
 ```
 
+### KOFButton
+
+Boton con etiqueta `KOFText`, variantes `primary` y `secondary`, cuatro tamaños
+y colores por estado. Usa `label` para el texto del boton.
+
+```tsx
+import { KOFButton } from '@porfidev/kofponents';
+
+export function ButtonExample() {
+  return (
+    <>
+      <KOFButton
+        label="Guardar"
+        variant="primary"
+        size="large"
+        onPress={() => console.log('Guardar')}
+      />
+      <KOFButton
+        label="Cancelar"
+        variant="secondary"
+        size="medium"
+        onPress={() => console.log('Cancelar')}
+      />
+      <KOFButton label="Ver detalle" variant="secondary" size="small" />
+      <KOFButton label="Agregar" size="x-small" />
+      <KOFButton label="Guardar" variant="primary" disabled />
+      <KOFButton label="Cancelar" variant="secondary" disabled />
+    </>
+  );
+}
+```
+
+Propiedades principales:
+
+| Propiedad   | Tipo                                          | Valor predeterminado / uso                                 |
+| ----------- | --------------------------------------------- | ---------------------------------------------------------- |
+| `label`     | `string`                                      | Obligatoria; etiqueta del boton                            |
+| `variant`   | `'primary' \| 'secondary'`                    | `'primary'`                                                |
+| `size`      | `'large' \| 'medium' \| 'small' \| 'x-small'` | `'medium'`                                                 |
+| `disabled`  | `boolean`                                     | Sin deshabilitar; bloquea la interaccion al activarse      |
+| `style`     | `PressableProps['style']`                     | Estilos del contenedor o callback que recibe `{ pressed }` |
+| `textStyle` | `StyleProp<TextStyle>`                        | Estilos de la etiqueta                                     |
+
+Tambien acepta propiedades de `Pressable`, como `onPress`, `onLongPress`,
+`onHoverIn`, `onHoverOut`, `accessibilityLabel` y `testID`. El contenido visible
+se construye con `label`; no uses `children` para reemplazarlo.
+
+#### Tamaños
+
+`size` controla las dimensiones del contenedor y el tamaño de la etiqueta:
+
+| Tamaño    | Altura del contenedor | Padding horizontal | Padding vertical | Font size |
+| --------- | --------------------- | ------------------ | ---------------- | --------- |
+| `large`   | Fija: 48              | 16                 | 12               | 16        |
+| `medium`  | Minima: 40            | 16                 | 10               | 16        |
+| `small`   | Minima: 36            | 16                 | 6                | 12        |
+| `x-small` | Minima: 28            | 16                 | 4                | 12        |
+
+Los valores son unidades de layout de React Native. La etiqueta usa el peso
+`regular` y no fija `lineHeight`: anula el valor de `KOFText` para usar la altura
+natural de la fuente. Puedes sobrescribirlo con `textStyle`.
+
+#### Estados y tema
+
+Cada variante usa `theme.buttons[variant]`, con los estados `default`, `hover`,
+`pressed` y `disabled`. La prioridad es `disabled` → `pressed` → `hover` →
+`default`. El hover se activa al pasar un puntero sobre el boton, y `pressed`
+mientras se mantiene presionado.
+
+Cada estado define `bgColor`, `textColor` y, opcionalmente, `borderColor`. El
+borde tiene ancho 1 y es transparente cuando no se define su color.
+
+Para personalizar un estado, conserva el resto de las variantes y colores:
+
+```tsx
+import { defaultTheme, KOFButton, KOFProvider } from '@porfidev/kofponents';
+
+const theme = {
+  buttons: {
+    ...defaultTheme.buttons,
+    secondary: {
+      ...defaultTheme.buttons.secondary,
+      pressed: {
+        bgColor: '#FFF0F2',
+        textColor: '#BD021C',
+        borderColor: '#BD021C',
+      },
+    },
+  },
+};
+
+export function ThemedButtonExample() {
+  return (
+    <KOFProvider theme={theme}>
+      <KOFButton label="Continuar" variant="secondary" />
+    </KOFProvider>
+  );
+}
+```
+
+El provider no combina profundamente `buttons`: si lo personalizas, incluye
+ambas variantes y todos sus estados, como en el ejemplo anterior.
+
+#### Estilos personalizados
+
+```tsx
+<KOFButton
+  label="Continuar"
+  style={({ pressed }) => ({
+    alignSelf: 'stretch',
+    opacity: pressed ? 0.9 : 1,
+  })}
+  textStyle={{ fontSize: 18, lineHeight: 24 }}
+/>
+```
+
+`style` y `textStyle` se aplican al final; pueden sobrescribir las dimensiones,
+la tipografia y los colores del estado actual.
+
 ### StatusLabel
 
 Etiqueta para mostrar estados de advertencia o error. Usa los tokens
@@ -204,6 +325,13 @@ export function IconExample() {
 ## Tipografias
 
 La libreria usa familias tipograficas desde el tema. La aplicacion que consume la libreria debe cargar las fuentes nativas antes de usarlas.
+
+`KOFProvider` selecciona nombres de fuentes; no instala ni carga sus archivos.
+El tema predeterminado referencia Inter. Incluye los archivos de los pesos que
+utilices; `KOFButton` usa `regular`. Tambien puedes cargar otra familia en tu
+aplicacion y configurar sus nombres en `theme.typography.fontFamily`. Sin los
+archivos correspondientes, la apariencia puede cambiar por el uso de una fuente
+de respaldo, incluso si utilizas el provider.
 
 En una app React Native CLI, puedes colocar las fuentes en:
 

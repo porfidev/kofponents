@@ -1,3 +1,63 @@
+# Ejemplos de Kofponents
+
+La aplicacion consume `@porfidev/kofponents` desde el workspace local. En
+`src/App.tsx` se muestran `KOFText`, `StatusLabel`, los iconos y `KOFButton`.
+
+## Ejemplos de KOFButton
+
+- Variantes `primary` y `secondary`.
+- Tamaños `large`, `medium`, `small` y `x-small` para cada variante.
+- Un boton deshabilitado de cada variante.
+- Estados `hover` al pasar el cursor y `pressed` al mantener presionado.
+
+La pantalla usa `ScrollView` dentro de `SafeAreaView`, con `SafeAreaProvider`
+de `react-native-safe-area-context`, para respetar el notch y los bordes seguros.
+Esta dependencia pertenece a la aplicacion de ejemplo; `KOFButton` no requiere
+un provider de area segura propio.
+
+Los ejemplos usan `KOFProvider` con `defaultTheme`. El provider de tema es
+opcional si no personalizas el tema. La carga de fuentes corresponde a la
+aplicacion consumidora; los archivos del ejemplo estan en `assets/fonts`.
+
+Consulta las [props, tamaños y personalizacion de KOFButton](../README.md#kofbutton)
+y la [configuracion de fuentes](../README.md#tipografias).
+
+## Ejecutar desde la raiz del repositorio
+
+```sh
+yarn install
+yarn example start
+```
+
+En otra terminal, ejecuta una plataforma:
+
+```sh
+yarn example ios
+# o
+yarn example android
+```
+
+Para web:
+
+```sh
+yarn example web
+```
+
+Si instalaste o actualizaste dependencias nativas de iOS, instala los Pods antes
+de reconstruir:
+
+```sh
+cd example
+bundle install
+cd ios
+bundle exec pod install
+```
+
+## Guia de React Native
+
+Las instrucciones siguientes corresponden a comandos ejecutados desde `example`
+(excepto `pod install`, que se ejecuta desde `example/ios`).
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started

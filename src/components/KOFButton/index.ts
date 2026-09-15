@@ -1,0 +1,1 @@
+export { KOFButton } from './KOFButton';
