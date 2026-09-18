@@ -1,87 +1,80 @@
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { BackHandler, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
-  AlertTriangleIcon,
   defaultTheme,
-  ForbiddenIcon,
   KOFButton,
   KOFProvider,
   KOFText,
-  multiply,
-  StatusLabel,
 } from '@porfidev/kofponents';
+import { KOFTextScreen } from './screens/KOFTextScreen';
+import { KOFButtonScreen } from './screens/KOFButtonScreen';
+import { StatusLabelScreen } from './screens/StatusLabelScreen';
+import { AlertTriangleIconScreen } from './screens/AlertTriangleIconScreen';
+import { ForbiddenIconScreen } from './screens/ForbiddenIconScreen';
 
-const result = multiply(3, 7);
-
-const theme = {
-  ...defaultTheme,
+const screens = {
+  KOFText: KOFTextScreen,
+  KOFButton: KOFButtonScreen,
+  StatusLabel: StatusLabelScreen,
+  AlertTriangleIcon: AlertTriangleIconScreen,
+  ForbiddenIcon: ForbiddenIconScreen,
 };
 
+type Section = keyof typeof screens;
+const sections = Object.keys(screens) as Section[];
+
 export default function App() {
+  const [section, setSection] = useState<Section | null>(null);
+  const Screen = section ? screens[section] : null;
+
+  useEffect(() => {
+    if (!section) return;
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        setSection(null);
+        return true;
+      }
+    );
+    return () => subscription.remove();
+  }, [section]);
+
   return (
     <SafeAreaProvider>
-      <KOFProvider theme={theme}>
+      <KOFProvider theme={defaultTheme}>
         <SafeAreaView style={styles.safeArea}>
+          <View style={styles.header}>
+            {section && (
+              <KOFButton
+                label="Volver al inicio"
+                variant="secondary"
+                accessibilityRole="button"
+                onPress={() => setSection(null)}
+              />
+            )}
+            <KOFText variant="title" weight="bold" accessibilityRole="header">
+              {section ?? 'Componentes'}
+            </KOFText>
+          </View>
           <ScrollView
+            key={section ?? 'home'}
             style={styles.scrollView}
             contentContainerStyle={styles.container}
             contentInsetAdjustmentBehavior="never"
           >
-            <KOFText
-              weight="bold"
-              color="red"
-              variant="title"
-              testID="title-text"
-            >
-              KOFText Title
-            </KOFText>
-            <KOFText
-              weight="regular"
-              color="text"
-              variant="body"
-              testID="body-text"
-            >
-              KOFText Body
-            </KOFText>
-
-            <StatusLabel
-              text={'Mensaje de advertencia'}
-              variant={'warn'}
-              icon={<AlertTriangleIcon />}
-            />
-            <StatusLabel
-              text={'Mensaje de error'}
-              variant={'error'}
-              icon={<ForbiddenIcon />}
-            />
-            <Text>Result: {result}</Text>
-            <KOFText variant="title" weight="bold">
-              KOFButton
-            </KOFText>
-            <KOFText>
-              Pasar el cursor o mantener presionado muestra cada estado.
-            </KOFText>
-            {(['primary', 'secondary'] as const).map((variant) => (
-              <View key={variant} style={styles.buttonGroup}>
-                <KOFText weight="semibold">{variant}</KOFText>
-                {(['large', 'medium', 'small', 'x-small'] as const).map(
-                  (size) => (
-                    <KOFButton
-                      key={size}
-                      label={`${variant} · ${size}`}
-                      variant={variant}
-                      size={size}
-                    />
-                  )
-                )}
+            {Screen ? (
+              <Screen />
+            ) : (
+              sections.map((name) => (
                 <KOFButton
-                  label={`${variant} · deshabilitado`}
-                  variant={variant}
-                  size="medium"
-                  disabled
+                  key={name}
+                  label={name}
+                  accessibilityRole="button"
+                  onPress={() => setSection(name)}
                 />
-              </View>
-            ))}
+              ))
+            )}
           </ScrollView>
         </SafeAreaView>
       </KOFProvider>
@@ -92,19 +85,22 @@ export default function App() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: defaultTheme.colors.background,
+  },
+  header: {
+    padding: 24,
+    gap: 16,
+    alignItems: 'flex-start',
   },
   scrollView: {
     flex: 1,
   },
   container: {
-    flexGrow: 1,
     padding: 24,
-    gap: 12,
-    alignItems: 'center',
-  },
-  buttonGroup: {
-    gap: 12,
-    alignItems: 'center',
+    paddingTop: 0,
+    gap: 24,
     width: '100%',
+    maxWidth: 720,
+    alignSelf: 'center',
   },
 });

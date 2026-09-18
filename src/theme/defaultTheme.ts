@@ -42,7 +42,7 @@ export const defaultTheme: KOFTheme = {
   },
   colors: {
     text: '#000000',
-    background: '#666666',
+    background: '#FCFCFC',
   },
   labels: {
     bgSurfaceWarning: '#FFC01A',

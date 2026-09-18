@@ -41,6 +41,7 @@
     "build:web": "vite build",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "test": "jest",
+    "sync:private": "node scripts/sync-private.mjs",
     "publish:public": "npm publish --access public --registry=https://registry.npmjs.org/",
     "publish:private": "npm publish --registry=https://pkgs.dev.azure.com/SFA-Advisor/SFACore-App/_packaging/kofponents/npm/registry/",
     "publish:all": "npm run publish:public && npm run publish:private"
