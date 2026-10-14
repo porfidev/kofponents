@@ -9,6 +9,7 @@ import {
   ForbiddenIcon,
   KOFProvider,
   KOFText,
+  Spacer,
   StatusLabel,
 } from '../index';
 
@@ -142,6 +143,50 @@ describe('KOFText', () => {
         fontSize: 32,
       })
     );
+  });
+});
+
+describe('Spacer', () => {
+  it('uses a default height of 30', () => {
+    const renderer = render(<Spacer />);
+    const view = renderer.root.findByType(View);
+
+    expect(StyleSheet.flatten(view.props.style).height).toBe(30);
+  });
+
+  it.each([16, 0])('uses the provided height of %s', (height) => {
+    const renderer = render(<Spacer height={height} />);
+    const view = renderer.root.findByType(View);
+
+    expect(StyleSheet.flatten(view.props.style).height).toBe(height);
+  });
+
+  it('updates its height when the prop changes', () => {
+    const renderer = render(<Spacer height={16} />);
+
+    act(() => {
+      renderer.update(<Spacer height={48} />);
+    });
+
+    const view = renderer.root.findByType(View);
+
+    expect(StyleSheet.flatten(view.props.style).height).toBe(48);
+  });
+
+  it('passes view props through', () => {
+    const onLayout = jest.fn();
+    const renderer = render(
+      <Spacer
+        testID="section-spacer"
+        accessibilityLabel="Separador de secciones"
+        onLayout={onLayout}
+      />
+    );
+    const view = renderer.root.findByType(View);
+
+    expect(view.props.testID).toBe('section-spacer');
+    expect(view.props.accessibilityLabel).toBe('Separador de secciones');
+    expect(view.props.onLayout).toBe(onLayout);
   });
 });
 

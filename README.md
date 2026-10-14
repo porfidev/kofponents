@@ -27,7 +27,7 @@ Agrega el provider cuando quieras personalizar el tema de tu aplicacion o de una
 seccion. Tambien puedes usarlo sin pasar `theme`, como en este ejemplo:
 
 ```tsx
-import { KOFProvider, KOFText } from '@porfidev/kofponents';
+import { KOFProvider, KOFText, Spacer } from '@porfidev/kofponents';
 
 export default function App() {
   return (
@@ -35,7 +35,7 @@ export default function App() {
       <KOFText variant="title" weight={700}>
         Kofponents
       </KOFText>
-
+      <Spacer height={16} />
       <KOFText variant="body" weight="regular">
         Componentes reutilizables para React Native.
       </KOFText>
@@ -261,6 +261,51 @@ ambas variantes y todos sus estados, como en el ejemplo anterior.
 
 `style` y `textStyle` se aplican al final; pueden sobrescribir las dimensiones,
 la tipografia y los colores del estado actual.
+
+### Spacer
+
+Componente para agregar espacio vertical entre elementos. Renderiza un `View`
+sin contenido ni fondo, con una altura predeterminada de `30`. No requiere
+`KOFProvider` ni depende del tema.
+
+```tsx
+import { View } from 'react-native';
+import { KOFText, Spacer } from '@porfidev/kofponents';
+
+export function SpacerExample() {
+  return (
+    <View>
+      <KOFText weight="bold">Titulo de ejemplo</KOFText>
+      <Spacer height={8} />
+      <KOFText>Descripcion separada del titulo por 8 unidades.</KOFText>
+      <Spacer />
+      <View style={{ backgroundColor: '#DBEAFE', padding: 12 }}>
+        <KOFText>Bloque separado de la descripcion por 30 unidades.</KOFText>
+      </View>
+      <Spacer height={48} />
+      <View style={{ backgroundColor: '#DCFCE7', padding: 12 }}>
+        <KOFText>Otro bloque, esta vez con 48 unidades de separacion.</KOFText>
+      </View>
+    </View>
+  );
+}
+```
+
+Propiedades principales:
+
+| Propiedad | Tipo     | Valor predeterminado / uso                                     |
+| --------- | -------- | -------------------------------------------------------------- |
+| `height`  | `number` | `30`; altura del espacio en unidades de layout de React Native |
+
+`height={0}` elimina el espacio aportado por el componente. Tambien acepta
+propiedades de `View`, como `testID`, `accessibilityLabel` y `onLayout`.
+Actualmente, `style` se reemplaza internamente por `{ height }`; utiliza
+`height` para ajustar la separacion y un `View` contenedor para otros estilos.
+
+Para verlo en la app de prueba, abre **Componentes → Spacer**. La pantalla
+[SpacerScreen](example/src/screens/SpacerScreen.tsx) incluye textos y bloques de
+colores para comparar la altura predeterminada y los valores `0`, `8`, `16`,
+`32` y `64`, ademas de un ejemplo dentro de una tarjeta.
 
 ### StatusLabel
 

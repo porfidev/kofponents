@@ -9,6 +9,7 @@ import {
 } from '@porfidev/kofponents';
 import { KOFTextScreen } from './screens/KOFTextScreen';
 import { KOFButtonScreen } from './screens/KOFButtonScreen';
+import { SpacerScreen } from './screens/SpacerScreen';
 import { StatusLabelScreen } from './screens/StatusLabelScreen';
 import { AlertTriangleIconScreen } from './screens/AlertTriangleIconScreen';
 import { ForbiddenIconScreen } from './screens/ForbiddenIconScreen';
@@ -16,6 +17,7 @@ import { ForbiddenIconScreen } from './screens/ForbiddenIconScreen';
 const screens = {
   KOFText: KOFTextScreen,
   KOFButton: KOFButtonScreen,
+  Spacer: SpacerScreen,
   StatusLabel: StatusLabelScreen,
   AlertTriangleIcon: AlertTriangleIconScreen,
   ForbiddenIcon: ForbiddenIconScreen,
